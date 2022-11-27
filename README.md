@@ -23,6 +23,12 @@
 * In the "Expression" text box, write your expression and output will immediately change on output text box 
 * Common example of expression
 * * $.*
+# Common mathematical operations
+* * If all the output values are numbers, enable common arithmetic values for 
+* * * Sum
+* * * Min
+* * * Max
+* * * Avg
 ## Link to JSON path expression website
 * If you need help on writing JSON path expression, find the link on bottom of the page "Need help on json path expression" which will be open in new tab
 
@@ -33,13 +39,7 @@
 * Add XML path expression
 * * XML beautify option 
 * * Load XML Sample Data
-* Common mathematical expressions
-* * If all the output values are numbers, enable common arithmetic values for 
-* * * Sum
-* * * Min
-* * * Max
-* * * Avg
-* Extension compatible with Firefox browser and other browser
+* Make this extension compatible with Firefox browser and other browsers
 ## Minor Functionality
 * Add "Copy clipboard" on "Expression Input" and "Output"
 * Auto detect JSON or XML in the input text area and change the beautify icon accordingly
