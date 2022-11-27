@@ -14,34 +14,33 @@
 * Click on 'Path Expression' logo on top of your browser which will open the extension in new tab. 
 
 # Current Functionality
-## Beautify JSON data
-* Copy and paste your JSON data input text area
-* Click on JSON beautify button (i.e. { })
-## Load JSON sample data
-* Click on 'Load Sample' button on bottom of the page, you can see the sample data in input text area
-## Write path expression
-* In the "Expression" text box, write your expression and output will immediately change on output text box 
-* Common example of expression
-* * $.*
-# Common mathematical operations
-* * If all the output values are numbers, enable common arithmetic values for 
-* * * Sum
-* * * Min
-* * * Max
-* * * Avg
-## Link to JSON path expression website
-* If you need help on writing JSON path expression, find the link on bottom of the page "Need help on json path expression" which will be open in new tab
+* Beautify JSON data
+    * Copy and paste your JSON data input text area
+    * Click on JSON beautify button (i.e. { })
+* Load JSON sample data
+    * Click on 'Load Sample' button on bottom of the page, you can see the sample data in input text area
+* Write path expression
+    * In the "Expression" text box, write your expression and output will immediately change on output text box 
+    * Common example of expression
+        * $.*
+* Common mathematical operations
+    * If all the output values are numbers, enable common arithmetic values for 
+        * Sum
+        * Min
+        * Max
+        * Avg
+* Link to JSON path expression website
+    * If you need help on writing JSON path expression, find the link on bottom of the page "Need help on json path expression" which will be open in new tab
 
 # What Next?
 ## Major Functionality
 * Autocomplete functionality on Expression
-* * Add functionality to have autocomplete on 'Expression' text box, on 'key up' event it should display the possible next expression.
+    * Add functionality to have autocomplete on 'Expression' text box, on 'key up' event it should display the possible next expression.
 * Add XML path expression
-* * XML beautify option 
-* * Load XML Sample Data
+    * XML beautify option 
+    * Load XML Sample Data
 * Make this extension compatible with Firefox browser and other browsers
 ## Minor Functionality
 * Add "Copy clipboard" on "Expression Input" and "Output"
 * Auto detect JSON or XML in the input text area and change the beautify icon accordingly
-* * Current beautify icon for JSON is '{ }' XML beautify icon to be added '< >'
-
+    * Current beautify icon for JSON is '{ }' XML beautify icon to be added '< >'
