@@ -47,8 +47,25 @@ let UIControls = (() => {
         inputGrpTextSpan.classList = 'input-group-text'
         inputGrpTextSpan.innerText = 'Expression'
 
+        let inputGrpPostPend = document.createElement('div')
+        inputGrpPostPend.classList = 'input-group-append'
+
+        let inputGrpPPTextSpan = document.createElement('span')
+        inputGrpPPTextSpan.classList = 'input-group-text expressionInputCopy'
+        inputGrpPPTextSpan.style.cursor = 'pointer'
+        inputGrpPPTextSpan.id = 'expressionInputCopy'
+        inputGrpPPTextSpan.addEventListener('click', JSONExpressionControl.onClickCopyToClipboard)
+        inputGrpPPTextSpan.setAttribute('data-toggle', 'tooltip')
+        inputGrpPPTextSpan.setAttribute('title', 'Copy to clipboard')
+        inputGrpPPTextSpan.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+      </svg>`
+
         inputGrpPrepend.appendChild(inputGrpTextSpan)
         inputGroupDiv.appendChild(inputGrpPrepend)
+        inputGrpPostPend.appendChild(inputGrpPPTextSpan)
+        
 
         let inputText = document.createElement('input')
         inputText.type = 'text'
@@ -59,7 +76,9 @@ let UIControls = (() => {
         // inputText.setAttribute('onkeyup', 'JSONExpressionControl.onExpressionChange()')
 
         inputGroupDiv.appendChild(inputText)
+        inputGroupDiv.appendChild(inputGrpPostPend)
         contentDiv.appendChild(inputGroupDiv)
+        
         $containerRow.appendChild(contentDiv)
     }
 
@@ -171,10 +190,7 @@ let UIControls = (() => {
     }
 
     return {
-
-        init: () => {
-            init()
-        }
+        init: init
     }
 
 })()

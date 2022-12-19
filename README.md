@@ -31,6 +31,7 @@
         * Avg
 * Link to JSON path expression website
     * If you need help on writing JSON path expression, find the link on bottom of the page "Need help on json path expression" which will be open in new tab
+* Add "Copy clipboard" on "Expression Input"
 
 # What Next?
 ## Major Functionality
@@ -41,6 +42,6 @@
     * Load XML Sample Data
 * Make this extension compatible with Firefox browser and other browsers
 ## Minor Functionality
-* Add "Copy clipboard" on "Expression Input" and "Output"
+Add "Copy clipboard" on "Output"
 * Auto detect JSON or XML in the input text area and change the beautify icon accordingly
     * Current beautify icon for JSON is '{ }' XML beautify icon to be added '< >'
