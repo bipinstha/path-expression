@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "outFile": "js/main.js"
+      },
+      "files": [
+        "ts/message-ctrl.ts",
+        "ts/util-ctrl.ts",
+        "ts/expression-ctrl.ts",
+        "ts/ui-ctrl.ts"
+      ]
+}
