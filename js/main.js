@@ -79,7 +79,7 @@ var UtilCtrl = (function () {
                 btn: true
             }
         };
-        this.sampleXML = "<root><points> <midPoint>\n            <x>9</x>\n            <y>9</y>\n        </midPoint><midPoint>\n            <x>5</x>\n            <y>8</y>\n        </midPoint><midPoint>\n            <x>2</x>\n            <y>4</y>\n        </midPoint></points>\n    <node1>node 1 name</node1>\n    <node2>node 2 name</node2>\n    </root>\n    ";
+        this.sampleXML = "\n<bookstore>\n\n<book category=\"cooking\">\n  <title lang=\"en\">Everyday Italian</title>\n  <author>Giada De Laurentiis</author>\n  <year>2005</year>\n  <price>30.00</price>\n</book>\n\n<book category=\"children\">\n  <title lang=\"en\">Harry Potter</title>\n  <author>J K. Rowling</author>\n  <year>2005</year>\n  <price>29.99</price>\n</book>\n\n<book category=\"web\">\n  <title lang=\"en\">XQuery Kick Start</title>\n  <author>James McGovern</author>\n  <author>Per Bothner</author>\n  <author>Kurt Cagle</author>\n  <author>James Linn</author>\n  <author>Vaidyanathan Nagarajan</author>\n  <year>2003</year>\n  <price>49.99</price>\n</book>\n\n<book category=\"web\">\n  <title lang=\"en\">Learning XML</title>\n  <author>Erik T. Ray</author>\n  <year>2003</year>\n  <price>39.95</price>\n</book>\n\n</bookstore>\n        ";
         this.messageCtrl = new MessageCtrl();
         this.onClickBeautify = function () {
             var inputEl = document.querySelector('#textAreaInput');
@@ -191,7 +191,6 @@ var UtilCtrl = (function () {
     }
     return UtilCtrl;
 }());
-'use strict';
 var JsonExpressionCtrl = (function () {
     function JsonExpressionCtrl() {
         this.beautify = function (str) {
@@ -231,23 +230,24 @@ var JsonExpressionCtrl = (function () {
 }());
 var XmlExpressionCtrl = (function () {
     function XmlExpressionCtrl() {
+        var _this = this;
+        this.xsltDoc = new DOMParser().parseFromString([
+            '<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">',
+            '  <xsl:strip-space elements="*"/>',
+            '  <xsl:template match="para[content-style][not(text())]">',
+            '    <xsl:value-of select="normalize-space(.)"/>',
+            '  </xsl:template>',
+            '  <xsl:template match="node()|@*">',
+            '    <xsl:copy><xsl:apply-templates select="node()|@*"/></xsl:copy>',
+            '  </xsl:template>',
+            '  <xsl:output indent="yes"/>',
+            '</xsl:stylesheet>',
+        ].join('\n'), 'application/xml');
         this.beautify = function (str) {
             try {
                 var xmlDoc = new DOMParser().parseFromString(str, 'application/xml');
-                var xsltDoc = new DOMParser().parseFromString([
-                    '<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">',
-                    '  <xsl:strip-space elements="*"/>',
-                    '  <xsl:template match="para[content-style][not(text())]">',
-                    '    <xsl:value-of select="normalize-space(.)"/>',
-                    '  </xsl:template>',
-                    '  <xsl:template match="node()|@*">',
-                    '    <xsl:copy><xsl:apply-templates select="node()|@*"/></xsl:copy>',
-                    '  </xsl:template>',
-                    '  <xsl:output indent="yes"/>',
-                    '</xsl:stylesheet>',
-                ].join('\n'), 'application/xml');
                 var xsltProcessor = new XSLTProcessor();
-                xsltProcessor.importStylesheet(xsltDoc);
+                xsltProcessor.importStylesheet(_this.xsltDoc);
                 var resultDoc = xsltProcessor.transformToDocument(xmlDoc);
                 var resultXml = new XMLSerializer().serializeToString(resultDoc);
                 return resultXml;
@@ -258,26 +258,17 @@ var XmlExpressionCtrl = (function () {
         };
         this.applyExpression = function (expr, inputValue) {
             var xmlDoc = new DOMParser().parseFromString(inputValue, 'application/xml');
-            var xsltDoc = new DOMParser().parseFromString([
-                '<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">',
-                '  <xsl:strip-space elements="*"/>',
-                '  <xsl:template match="para[content-style][not(text())]">',
-                '    <xsl:value-of select="normalize-space(.)"/>',
-                '  </xsl:template>',
-                '  <xsl:template match="node()|@*">',
-                '    <xsl:copy><xsl:apply-templates select="node()|@*"/></xsl:copy>',
-                '  </xsl:template>',
-                '  <xsl:output indent="yes"/>',
-                '</xsl:stylesheet>',
-            ].join('\n'), 'application/xml');
             var xsltProcessor = new XSLTProcessor();
-            xsltProcessor.importStylesheet(xsltDoc);
+            xsltProcessor.importStylesheet(_this.xsltDoc);
             var xml = xsltProcessor.transformToDocument(xmlDoc);
-            console.log(xml);
-            var nodes = document.evaluate(expr, xml, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+            var nodes = document.evaluate(expr, xml, null, XPathResult.ANY_TYPE, null);
             console.log(nodes);
-            console.log(nodes.singleNodeValue);
-            return new XMLSerializer().serializeToString(nodes.singleNodeValue);
+            var node, nodeArray = [];
+            var xmlSerilizer = new XMLSerializer();
+            while (node = nodes.iterateNext()) {
+                nodeArray.push(xmlSerilizer.serializeToString(node));
+            }
+            return nodeArray.join('\n');
         };
         this.computeArithmeticOpValues = function (inpValue) {
             console.log("method not implemented");
@@ -295,7 +286,6 @@ var UICtrl = (function () {
         container.classList.add('container');
         container.id = 'container';
         app.appendChild(container);
-        this.init();
     }
     UICtrl.prototype.init = function () {
         console.log("[UIControls: init] initialize");
@@ -412,5 +402,5 @@ var UICtrl = (function () {
     };
     return UICtrl;
 }());
-new UICtrl();
+new UICtrl().init();
 //# sourceMappingURL=main.js.map

@@ -1,4 +1,3 @@
-'use strict'
 interface ExpressionCtrl {
 
     beautify(str: string): any
@@ -77,13 +76,19 @@ class XmlExpressionCtrl implements ExpressionCtrl {
         var xsltProcessor = new XSLTProcessor()
         xsltProcessor.importStylesheet(this.xsltDoc)
         var xml = xsltProcessor.transformToDocument(xmlDoc)
-        console.log(xml)
-        let nodes: any = document.evaluate(expr, xml, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
-        return new XMLSerializer().serializeToString(nodes.singleNodeValue)
+        
+        let nodes: any = document.evaluate(expr, xml, null, XPathResult.ANY_TYPE, null)
+        console.log(nodes)
+        let node: any,  nodeArray: any[] = []
+        let xmlSerilizer = new XMLSerializer()
+        while(node = nodes.iterateNext()) {
+            nodeArray.push(xmlSerilizer.serializeToString(node))
+        }
+        return nodeArray.join('\n')
     }
 
     computeArithmeticOpValues = (inpValue: any) => {
-        console.log(`method not implemented`)
+        //console.log(`method not implemented`)
     }
 }
 

@@ -13,7 +13,6 @@ class UICtrl {
         container.classList.add('container')
         container.id = 'container'
         app.appendChild(container)
-        this.init()
     }
 
     init() {
@@ -164,4 +163,4 @@ class UICtrl {
 
 }
 
-new UICtrl()
+new UICtrl().init()
